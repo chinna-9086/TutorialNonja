@@ -1,0 +1,39 @@
+[DEBUG] 2025-11-18 13:05:19.122 [main] TestNG - suiteXmlPath: "C:\Users\M MAHESH NAIK\eclipse-workspace\bts\crossbrowsertesting.xml"
+[WARN ] 2025-11-18 13:05:19.161 [main] TestNGContentHandler - It is strongly recommended to add "<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >" at the top of the suite file [C:\Users\M MAHESH NAIK\eclipse-workspace\bts\crossbrowsertesting.xml] otherwise TestNG may fail or not work as expected.
+[INFO ] 2025-11-18 13:05:19.513 [TestNG-tests-1] TC002_LoginTest - user lanching the desire browser
+[INFO ] 2025-11-18 13:05:23.069 [TestNG-tests-1] TC002_LoginTest - logintest case started
+[INFO ] 2025-11-18 13:05:23.070 [TestNG-tests-1] TC002_LoginTest - user navigate to the login page
+[INFO ] 2025-11-18 13:05:23.546 [TestNG-tests-1] TC002_LoginTest - user enter valid credentials to the feils
+[INFO ] 2025-11-18 13:05:25.245 [TestNG-tests-1] TC002_LoginTest - validating the login details
+[INFO ] 2025-11-18 13:05:55.834 [TestNG-tests-1] TC002_LoginTest - User close the Browser
+[INFO ] 2025-11-18 13:05:56.192 [TestNG-tests-1] TC001_AccountRegister - user lanching the desire browser
+[INFO ] 2025-11-18 13:05:58.370 [TestNG-tests-1] TC001_AccountRegister - User Navigate To the Account Register Page
+[INFO ] 2025-11-18 13:05:58.944 [TestNG-tests-1] TC001_AccountRegister - User enters the valid details to register  account 
+[INFO ] 2025-11-18 13:06:01.667 [TestNG-tests-1] TC001_AccountRegister - user successfully register the account 
+[INFO ] 2025-11-18 13:06:01.739 [TestNG-tests-1] TC001_AccountRegister - User close the Browser
+[DEBUG] 2025-11-18 13:18:16.931 [main] TestNG - suiteXmlPath: "C:\Users\M MAHESH NAIK\eclipse-workspace\bts\crossbrowsertesting.xml"
+[WARN ] 2025-11-18 13:18:16.956 [main] TestNGContentHandler - It is strongly recommended to add "<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >" at the top of the suite file [C:\Users\M MAHESH NAIK\eclipse-workspace\bts\crossbrowsertesting.xml] otherwise TestNG may fail or not work as expected.
+[INFO ] 2025-11-18 13:18:17.222 [TestNG-tests-1] TC002_LoginTest - user lanching the desire browser
+[INFO ] 2025-11-18 13:18:20.535 [TestNG-tests-1] TC002_LoginTest - logintest case started
+[INFO ] 2025-11-18 13:18:20.535 [TestNG-tests-1] TC002_LoginTest - user navigate to the login page
+[INFO ] 2025-11-18 13:18:20.999 [TestNG-tests-1] TC002_LoginTest - user enter valid credentials to the feils
+[INFO ] 2025-11-18 13:18:21.289 [TestNG-tests-1] TC002_LoginTest - validating the login details
+[INFO ] 2025-11-18 13:18:51.681 [TestNG-tests-1] TC002_LoginTest - User close the Browser
+[INFO ] 2025-11-18 13:18:51.823 [TestNG-tests-1] TC001_AccountRegister - user lanching the desire browser
+[INFO ] 2025-11-18 13:18:53.460 [TestNG-tests-1] TC001_AccountRegister - User Navigate To the Account Register Page
+[INFO ] 2025-11-18 13:18:53.881 [TestNG-tests-1] TC001_AccountRegister - User enters the valid details to register  account 
+[INFO ] 2025-11-18 13:18:55.402 [TestNG-tests-1] TC001_AccountRegister - user successfully register the account 
+[INFO ] 2025-11-18 13:18:55.428 [TestNG-tests-1] TC001_AccountRegister - User close the Browser
+[DEBUG] 2025-11-18 13:21:52.171 [main] TestNG - suiteXmlPath: "C:\Users\M MAHESH NAIK\eclipse-workspace\bts\crossbrowsertesting.xml"
+[WARN ] 2025-11-18 13:21:52.204 [main] TestNGContentHandler - It is strongly recommended to add "<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >" at the top of the suite file [C:\Users\M MAHESH NAIK\eclipse-workspace\bts\crossbrowsertesting.xml] otherwise TestNG may fail or not work as expected.
+[INFO ] 2025-11-18 13:21:52.457 [TestNG-tests-1] TC002_LoginTest - user lanching the desire browser
+[INFO ] 2025-11-18 13:21:54.588 [TestNG-tests-1] TC002_LoginTest - logintest case started
+[INFO ] 2025-11-18 13:21:54.588 [TestNG-tests-1] TC002_LoginTest - user navigate to the login page
+[INFO ] 2025-11-18 13:21:54.927 [TestNG-tests-1] TC002_LoginTest - user enter valid credentials to the feils
+[INFO ] 2025-11-18 13:21:55.229 [TestNG-tests-1] TC002_LoginTest - validating the login details
+[INFO ] 2025-11-18 13:22:25.670 [TestNG-tests-1] TC002_LoginTest - User close the Browser
+[INFO ] 2025-11-18 13:22:25.831 [TestNG-tests-1] TC001_AccountRegister - user lanching the desire browser
+[INFO ] 2025-11-18 13:22:27.937 [TestNG-tests-1] TC001_AccountRegister - User Navigate To the Account Register Page
+[INFO ] 2025-11-18 13:22:28.543 [TestNG-tests-1] TC001_AccountRegister - User enters the valid details to register  account 
+[INFO ] 2025-11-18 13:22:29.355 [TestNG-tests-1] TC001_AccountRegister - user successfully register the account 
+[INFO ] 2025-11-18 13:22:30.504 [TestNG-tests-1] TC001_AccountRegister - User close the Browser
