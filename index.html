@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Tracker · simple app</title>
+  <!-- Google Font & basic styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f4f6fb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      margin: 0;
+    }
+
+    .app-card {
+      max-width: 900px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 8px 20px -8px rgba(0, 0, 0, 0.05);
+      padding: 2rem 2rem 2rem 2rem;
+      transition: all 0.2s ease;
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .app-header h1 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .app-header h1 span {
+      background: #eef2ff;
+      color: #4f46e5;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.2rem 0.8rem;
+      border-radius: 999px;
+      letter-spacing: 0;
+    }
+
+    .date-badge {
+      background: #f1f5f9;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .date-badge i {
+      font-style: normal;
+      font-size: 1.1rem;
+    }
+
+    /* stats row */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-item {
+      background: #f8fafc;
+      border-radius: 1.5rem;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      border: 1px solid #eef2f6;
+      transition: 0.15s;
+    }
+
+    .stat-item .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-item .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.2;
+    }
+
+    .stat-item .stat-unit {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #64748b;
+      margin-left: 0.2rem;
+    }
+
+    /* add task form */
+    .add-task {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .add-task input {
+      flex: 1 1 200px;
+      padding: 1rem 1.2rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 1.2rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #ffffff;
+      transition: 0.2s;
+      outline: none;
+      color: #0f172a;
+    }
+
+    .add-task input:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    }
+
+    .add-task input::placeholder {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    .add-task button {
+      background: #4f46e5;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 1rem 1.8rem;
+      border-radius: 1.2rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+      border: 1px solid #4f46e5;
+    }
+
+    .add-task button:hover {
+      background: #4338ca;
+      border-color: #4338ca;
+      transform: translateY(-1px);
+    }
+
+    .add-task button:active {
+      transform: translateY(0);
+    }
+
+    /* task list */
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      max-height: 350px;
+      overflow-y: auto;
+      padding-right: 0.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .task-list::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .task-list::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 10px;
+    }
+
+    .task-list::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 10px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: #ffffff;
+      border: 1.5px solid #edf2f7;
+      border-radius: 1.2rem;
+      padding: 0.9rem 1.2rem;
+      transition: 0.15s;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .task-item:hover {
+      border-color: #cbd5e1;
+      background: #fafcff;
+    }
+
+    .task-check {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 999px;
+      border: 2px solid #cbd5e1;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.15s;
+      flex-shrink: 0;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .task-check.completed {
+      background: #4f46e5;
+      border-color: #4f46e5;
+    }
+
+    .task-text {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1e293b;
+      word-break: break-word;
+      transition: 0.15s;
+    }
+
+    .task-text.line-through {
+      text-decoration: line-through;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    .delete-btn {
+      background: transparent;
+      border: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: 0.15s;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .delete-btn:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #94a3b8;
+      padding: 2.5rem 1rem;
+      background: #f8fafc;
+      border-radius: 1.5rem;
+      font-weight: 500;
+      border: 1px dashed #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .footer-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 1.5rem;
+      margin-top: 0.5rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1.5px solid #e2e8f0;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      color: #475569;
+      font-weight: 500;
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .clear-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #1e293b;
+    }
+
+    .task-count {
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+      margin-right: auto;
+      padding-left: 0.2rem;
+    }
+
+    /* responsive */
+    @media (max-width: 550px) {
+      .app-card {
+        padding: 1.5rem;
+        border-radius: 2rem;
+      }
+
+      .stats-grid {
+        gap: 0.6rem;
+      }
+
+      .stat-item .stat-number {
+        font-size: 1.8rem;
+      }
+
+      .add-task button {
+        padding: 1rem 1.4rem;
+      }
+
+      .app-header h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-card">
+    <!-- Header -->
+    <div class="app-header">
+      <h1>
+        Task Tracker
+        <span>v1.0</span>
+      </h1>
+      <div class="date-badge">
+        <i>📅</i>
+        <span id="currentDate"></span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-label">Total</div>
+        <div class="stat-number" id="totalTasks">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Completed</div>
+        <div class="stat-number" id="completedTasks">0</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Pending</div>
+        <div class="stat-number" id="pendingTasks">0</div>
+      </div>
+    </div>
+
+    <!-- Add Task -->
+    <div class="add-task">
+      <input type="text" id="taskInput" placeholder="Add a new task..." autocomplete="off" />
+      <button id="addTaskBtn">
+        <span>+</span> Add
+      </button>
+    </div>
+
+    <!-- Task list container -->
+    <div class="task-list" id="taskListContainer">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- Footer actions -->
+    <div class="footer-actions">
+      <span class="task-count" id="taskCountLabel">0 tasks</span>
+      <button class="clear-btn" id="clearCompletedBtn">
+        <span>🗑️</span> Clear completed
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---------- state ----------
+      let tasks = [];
+
+      // ---------- DOM refs ----------
+      const taskInput = document.getElementById('taskInput');
+      const addBtn = document.getElementById('addTaskBtn');
+      const taskListContainer = document.getElementById('taskListContainer');
+      const totalTasksEl = document.getElementById('totalTasks');
+      const completedTasksEl = document.getElementById('completedTasks');
+      const pendingTasksEl = document.getElementById('pendingTasks');
+      const taskCountLabel = document.getElementById('taskCountLabel');
+      const clearCompletedBtn = document.getElementById('clearCompletedBtn');
+      const currentDateEl = document.getElementById('currentDate');
+
+      // ---------- helpers ----------
+      function formatDate() {
+        const d = new Date();
+        return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      }
+      currentDateEl.textContent = formatDate();
+
+      // Update stats and UI
+      function updateStats() {
+        const total = tasks.length;
+        const completed = tasks.filter(t => t.completed).length;
+        const pending = total - completed;
+
+        totalTasksEl.textContent = total;
+        completedTasksEl.textContent = completed;
+        pendingTasksEl.textContent = pending;
+
+        // update footer label
+        taskCountLabel.textContent = total === 0 
+          ? 'No tasks' 
+          : `${total} task${total !== 1 ? 's' : ''} (${pending} pending)`;
+      }
+
+      // Render tasks
+      function renderTasks() {
+        if (tasks.length === 0) {
+          taskListContainer.innerHTML = `<div class="empty-message">✨ No tasks yet. Add one above.</div>`;
+          updateStats();
+          return;
+        }
+
+        let html = '';
+        tasks.forEach((task, index) => {
+          const completedClass = task.completed ? 'completed' : '';
+          const textClass = task.completed ? 'line-through' : '';
+          const checkmark = task.completed ? '✓' : '';
+
+          html += `
+            <div class="task-item" data-task-id="${task.id}">
+              <div class="task-check ${completedClass}" data-action="toggle" data-id="${task.id}">
+                ${checkmark}
+              </div>
+              <div class="task-text ${textClass}">${escapeHtml(task.text)}</div>
+              <button class="delete-btn" data-action="delete" data-id="${task.id}" title="Delete task">✕</button>
+            </div>
+          `;
+        });
+
+        taskListContainer.innerHTML = html;
+        updateStats();
+      }
+
+      // Simple escape for XSS safety (even though it's local, good practice)
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Generate unique id
+      function generateId() {
+        return Date.now() + '-' + Math.random().toString(36).substring(2, 9);
+      }
+
+      // Add new task
+      function addTask() {
+        const text = taskInput.value.trim();
+        if (text === '') {
+          // small feedback: shake input
+          taskInput.style.borderColor = '#ef4444';
+          taskInput.style.boxShadow = '0 0 0 4px rgba(239, 68, 68, 0.15)';
+          setTimeout(() => {
+            taskInput.style.borderColor = '#e2e8f0';
+            taskInput.style.boxShadow = 'none';
+          }, 600);
+          return;
+        }
+
+        const newTask = {
+          id: generateId(),
+          text: text,
+          completed: false,
+        };
+
+        tasks.push(newTask);
+        taskInput.value = '';
+        taskInput.focus();
+        renderTasks();
+      }
+
+      // Toggle task completion
+      function toggleTask(taskId) {
+        const task = tasks.find(t => t.id === taskId);
+        if (task) {
+          task.completed = !task.completed;
+          renderTasks();
+        }
+      }
+
+      // Delete task
+      function deleteTask(taskId) {
+        tasks = tasks.filter(t => t.id !== taskId);
+        renderTasks();
+      }
+
+      // Clear completed tasks
+      function clearCompleted() {
+        const hasCompleted = tasks.some(t => t.completed);
+        if (!hasCompleted) return; // nothing to clear
+        tasks = tasks.filter(t => !t.completed);
+        renderTasks();
+      }
+
+      // ---------- event delegation on task list ----------
+      taskListContainer.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-action]');
+        if (!target) return;
+
+        const action = target.dataset.action;
+        const id = target.dataset.id;
+
+        if (action === 'toggle') {
+          toggleTask(id);
+        } else if (action === 'delete') {
+          deleteTask(id);
+        }
+      });
+
+      // ---------- add button & enter key ----------
+      addBtn.addEventListener('click', addTask);
+      taskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          addTask();
+        }
+      });
+
+      // Clear completed button
+      clearCompletedBtn.addEventListener('click', clearCompleted);
+
+      // ---------- seed with a few example tasks (optional) ----------
+      function seedTasks() {
+        tasks = [
+          { id: generateId(), text: 'Design new landing page', completed: false },
+          { id: generateId(), text: 'Update project roadmap', completed: true },
+          { id: generateId(), text: 'Team sync at 3pm', completed: false },
+          { id: generateId(), text: 'Review pull request #42', completed: true },
+        ];
+        renderTasks();
+      }
+
+      // Initialize: seed with demo tasks (so it doesn't start empty)
+      seedTasks();
+
+      // focus input on load
+      window.addEventListener('load', () => {
+        taskInput.focus();
+      });
+
+    })();
+  </script>
+</body>
+</html>
