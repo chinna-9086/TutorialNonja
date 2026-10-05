@@ -1,4 +1,4 @@
-FROM ubentu
+FROM ubuntu
 EXPOSE 80
 MAINTAINER chinna
 LABEL this is my first docker file
